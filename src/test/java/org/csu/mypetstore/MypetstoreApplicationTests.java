@@ -1,7 +1,10 @@
 package org.csu.mypetstore;
 
+import org.csu.mypetstore.domain.Account;
 import org.csu.mypetstore.domain.Category;
+import org.csu.mypetstore.domain.Item;
 import org.csu.mypetstore.domain.Product;
+import org.csu.mypetstore.service.AccountService;
 import org.csu.mypetstore.service.CatalogService;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
@@ -15,6 +18,8 @@ import java.util.List;
 class MypetstoreApplicationTests {
     @Autowired
     CatalogService catalogService;
+    @Autowired
+    AccountService accountService;
 
     @Test
     void contextLoads() {
@@ -29,5 +34,15 @@ class MypetstoreApplicationTests {
     void testProdect(){
         List<Product> productList=catalogService.getProductListByCategory("BIRDS");
         System.out.print(productList.size());
+    }
+    @Test
+    void testItem(){
+       Item item=catalogService.getItem("EST-14");
+       System.out.println(item.getItemId()+" ,"+item.getListPrice()+","+item.getAttribute1());
+    }
+    @Test
+    void testAccount(){
+        Account account=accountService.getAccount("j2ee");
+        System.out.println(account.getAddress1()+","+account.getEmail());
     }
 }
