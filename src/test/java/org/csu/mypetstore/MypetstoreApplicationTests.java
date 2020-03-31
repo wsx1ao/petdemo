@@ -43,6 +43,20 @@ class MypetstoreApplicationTests {
     @Test
     void testAccount(){
         Account account=accountService.getAccount("j2ee");
-        System.out.println(account.getAddress1()+","+account.getEmail());
+        System.out.println(account.getAddress1()+","+account.getEmail()+"1");
+
+        Account account1=accountService.getAccount("j2ee","j2ee");
+        System.out.println(account1.getEmail()+","+account.getUsername()+"2");
+
+        Account testaccount = account;
+        testaccount.setUsername("wsx");
+        testaccount.setPassword("123");
+        accountService.insertAccount(testaccount);
+
+        testaccount.setPassword("123");
+        testaccount.setEmail("wsx@gmail.com");
+        accountService.updateAccount(testaccount);
+
+        System.out.println(testaccount.getEmail()+","+testaccount.getUsername()+testaccount.getPassword()+",3");
     }
 }
