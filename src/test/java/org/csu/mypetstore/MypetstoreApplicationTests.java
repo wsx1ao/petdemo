@@ -2,7 +2,7 @@ package org.csu.mypetstore;
 
 import org.csu.mypetstore.domain.*;
 import org.csu.mypetstore.service.AccountService;
-import org.csu.mypetstore.service.CartService;
+//import org.csu.mypetstore.service.CartService;
 import org.csu.mypetstore.service.CatalogService;
 import org.csu.mypetstore.service.OrderService;
 import org.junit.jupiter.api.Test;
@@ -23,8 +23,8 @@ class MypetstoreApplicationTests {
     AccountService accountService;
     @Autowired
     OrderService orderService;
-    @Autowired
-    CartService cartService;
+//    @Autowired
+//    CartService cartService;
 
     @Test
     void contextLoads() {
@@ -82,20 +82,20 @@ class MypetstoreApplicationTests {
 
     }
 
-    @Test
-    void testCart(){
-      CartItem cartItem=cartService.getCartByUsername("j2ee");
-      System.out.println(cartItem.getItem());
-//        Account account=accountService.getAccount("j2ee");
-//        CartItem cartItem=new CartItem();
-//        Item item=catalogService.getItem("EST-14");
-//        cartItem.setItem(item);
-//        cartItem.setQuantity(5);
-//        cartItem.setInStock(false);
-//        cartService.insertCartItem(cartItem,account);
-
-
-    }
+//    @Test
+//    void testCart(){
+//      CartItem cartItem=cartService.getCartByUsername("j2ee");
+//      System.out.println(cartItem.getItem());
+////        Account account=accountService.getAccount("j2ee");
+////        CartItem cartItem=new CartItem();
+////        Item item=catalogService.getItem("EST-14");
+////        cartItem.setItem(item);
+////        cartItem.setQuantity(5);
+////        cartItem.setInStock(false);
+////        cartService.insertCartItem(cartItem,account);
+//
+//
+//    }
     @Test
     void testOrder(){
 

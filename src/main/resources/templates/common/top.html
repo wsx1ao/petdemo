@@ -11,53 +11,47 @@
 
         <div id="Logo">
             <div id="LogoContent">
-                <a href="Main"><img src="../images/logo-topbar.gif" /></a>
+                <a href="view"><img src="../images/logo-topbar.gif" /></a>
             </div>
         </div>
+
         <div id="Menu">
             <div id="MenuContent">
-                <a href="Cart"><img align="middle" name="img_cart"
-                                    src="../images/cart.gif" /></a> <img align="middle"
-                                                                      src="../images/separator.gif" />
-                <c:if test="${sessionScope.account == null}">
-                    <a href="SignOnForm">Sign In</a>
-                </c:if>
-                <c:if test="${sessionScope.account != null}">
-                    <a href="SignOff">Sign Out</a>
-                </c:if>
+                <a href="/cart/viewCart"><img align="middle" name="img_cart" src="../images/cart.gif" /></a>
                 <img align="middle" src="../images/separator.gif" />
-                <c:if test="${sessionScope.account != null}">
-                    <a href="EditAccountForm">My Account</a>
-                </c:if>
+                <a th:if="${session.account} == null" href="/account/signonForm">Sign In</a>
+                <a th:if="(${session.account} != null) and (${!session.authenticated}) " href="/account/signonForm">Sign In</a>
+                <a th:if="(${session.account} != null) and (${session.authenticated})" href="/account/signoff">Sign Out</a>
+                <img th:if="(${session.account} != null) and (${session.authenticated})" align="middle" src="../images/separator.gif" />
+                <a th:if="(${session.account} != null) and (${session.authenticated})" href="/account/editAccountForm">My Account</a>
                 <img align="middle" src="../images/separator.gif" />
-                <a href="http://www.w3school.com.cn/index.html">?</a>
+                <a href="../help.html">?</a>
             </div>
         </div>
 
         <div id="Search">
             <div id="SearchContent">
-                <form action="search" method="post">
-                    <input type="text" id="keyword" name="keyword" size="14" />
-                    <input type="submit"  name="searchProducts" value="Search" />
-                    <div class="auto hidden" id="auto">
-                        <div class="auto_out"></div>
-                        <div class="auto_out"></div>
-                        <script src="js/searchProduct.js"></script>
-                    </div>
+                <form action="/catalog/searchProducts" method="post">
+                    <input type="text" name="keyword" size="14" />
+                    <input type="submit" name="searchProducts" value="Search"/>
                 </form>
             </div>
         </div>
 
         <div id="QuickLinks">
-            <a href="Category?categoryId=FISH">
-                <img src="../images/sm_fish.gif" /></a> <img src="../images/separator.gif" />
-            <a href="Category?categoryId=DOGS">
-                <img src="../images/sm_dogs.gif" /></a> <img src="../images/separator.gif" />
-            <a href="Category?categoryId=REPTILES">
+            <a href="/catalog/viewCategory?categoryId=FISH">
+                <img src="../images/sm_fish.gif" /></a>
+            <img src="../images/separator.gif" />
+            <a href="/catalog/viewCategory?categoryId=DOGS">
+                <img src="../images/sm_dogs.gif" /></a>
+            <img src="../images/separator.gif" />
+            <a href="/catalog/viewCategory?categoryId=REPTILES">
                 <img src="../images/sm_reptiles.gif" /></a>
-            <img src="../images/separator.gif" /> <a href="Category?categoryId=CATS">
-            <img src="../images/sm_cats.gif" /></a> <img src="../images/separator.gif" />
-            <a href="Category?categoryId=BIRDS">
+            <img src="../images/separator.gif" />
+            <a href="/catalog/viewCategory?categoryId=CATS">
+                <img src="../images/sm_cats.gif" /></a>
+            <img src="../images/separator.gif" />
+            <a href="/catalog/viewCategory?categoryId=BIRDS">
                 <img src="../images/sm_birds.gif" /></a>
         </div>
 

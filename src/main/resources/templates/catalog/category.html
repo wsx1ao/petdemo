@@ -23,7 +23,7 @@
             </tr>
 
             <tr th:each="product:${productList}">
-                <td><a th:href="@{/catalog/viewProduct?productId=}+${product.productId}" th:text="${product.productId}">Product
+                <td><a th:href="'/catalog/viewProduct?productId='+${product.productId}" th:text="${product.productId}">Product
                     ID</a></td>
                 <td th:text="${product.name}">Product Name</td>
             </tr>
