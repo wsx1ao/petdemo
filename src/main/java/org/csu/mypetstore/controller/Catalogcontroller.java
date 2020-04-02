@@ -31,6 +31,7 @@ public class Catalogcontroller {
     @Autowired
     private CatalogService catalogService;
 
+
     @GetMapping("view")
     public String view(){
         return "catalog/main";

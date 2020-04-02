@@ -65,22 +65,22 @@ class MypetstoreApplicationTests {
 //        System.out.println(testaccount.getEmail()+","+testaccount.getUsername()+testaccount.getPassword()+",3");
     }
 
-    @Test
-    void testLineItem(){
-    List<LineItem> lineItemList=orderService.getLineItemsByOrderId(1000);
-    System.out.println(lineItemList.size());
-
-   LineItem testlineitem=new LineItem();
-   testlineitem.setOrderId(1008);
-   testlineitem.setLineNumber(1);
-   testlineitem.setItemId("EST-12");
-   testlineitem.setQuantity(5);
-   BigDecimal a =new BigDecimal(20);
-   testlineitem.setUnitPrice(a);
-
-   orderService.insertLineItem(testlineitem);
-
-    }
+//    @Test
+//    void testLineItem(){
+//    List<LineItem> lineItemList=orderService.getLineItemsByOrderId(1000);
+//    System.out.println(lineItemList.size());
+//
+//   LineItem testlineitem=new LineItem();
+//   testlineitem.setOrderId(1008);
+//   testlineitem.setLineNumber(1);
+//   testlineitem.setItemId("EST-12");
+//   testlineitem.setQuantity(5);
+//   BigDecimal a =new BigDecimal(20);
+//   testlineitem.setUnitPrice(a);
+//
+//   orderService.insertLineItem(testlineitem);
+//
+//    }
 
 //    @Test
 //    void testCart(){

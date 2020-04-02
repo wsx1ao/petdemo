@@ -1,17 +1,14 @@
 package org.csu.mypetstore.domain;
 
+import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
-public class Order implements Serializable {
-
-    private static final long serialVersionUID = 6321792448424424931L;
-
+@Component
+public class Order {
     private int orderId;
     private String username;
     private Date orderDate;
@@ -39,6 +36,8 @@ public class Order implements Serializable {
     private String locale;
     private String status;
     private List<LineItem> lineItems = new ArrayList<LineItem>();
+
+
 
     public int getOrderId() {
         return orderId;
@@ -196,8 +195,8 @@ public class Order implements Serializable {
         return shipToFirstName;
     }
 
-    public void setShipToFirstName(String shipFoFirstName) {
-        this.shipToFirstName = shipFoFirstName;
+    public void setShipToFirstName(String shipToFirstName) {
+        this.shipToFirstName = shipToFirstName;
     }
 
     public String getShipToLastName() {
@@ -248,19 +247,16 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public void setLineItems(List<LineItem> lineItems) {
-        this.lineItems = lineItems;
-    }
-
     public List<LineItem> getLineItems() {
         return lineItems;
     }
 
-    public void initOrder(Account account, Cart cart) {
-
+    public void setLineItems(List<LineItem> lineItems) {
+        this.lineItems = lineItems;
+    }
+    public void initOrder(Account account,Cart cart){
         username = account.getUsername();
         orderDate = new Date();
-
         shipToFirstName = account.getFirstName();
         shipToLastName = account.getLastName();
         shipAddress1 = account.getAddress1();
@@ -280,28 +276,23 @@ public class Order implements Serializable {
         billCountry = account.getCountry();
 
         totalPrice = cart.getSubTotal();
-
-        creditCard = "999 9999 9999 9999";
-        expiryDate = "12/03";
+        creditCard = "999 999 999 999";
+        expiryDate = "04/01";
         cardType = "Visa";
         courier = "UPS";
         locale = "CA";
-        status = "P";
-
+        status = "p";
         Iterator<CartItem> i = cart.getAllCartItems();
-        while (i.hasNext()) {
-            CartItem cartItem = (CartItem) i.next();
+        while(i.hasNext()){
+            CartItem cartItem = (CartItem)i.next();
             addLineItem(cartItem);
         }
-
     }
-
-    public void addLineItem(CartItem cartItem) {
-        LineItem lineItem = new LineItem(lineItems.size() + 1, cartItem);
+    public void addLineItem(CartItem cartItem){
+        LineItem lineItem = new LineItem(lineItems.size() + 1,cartItem);
         addLineItem(lineItem);
     }
-
-    public void addLineItem(LineItem lineItem) {
+    public  void addLineItem(LineItem lineItem){
         lineItems.add(lineItem);
     }
 

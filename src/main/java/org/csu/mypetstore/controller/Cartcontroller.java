@@ -1,8 +1,6 @@
 package org.csu.mypetstore.controller;
 
-import org.csu.mypetstore.domain.Cart;
-import org.csu.mypetstore.domain.CartItem;
-import org.csu.mypetstore.domain.Item;
+import org.csu.mypetstore.domain.*;
 import org.csu.mypetstore.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,18 +9,30 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.SessionScope;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @SessionScope
+@SessionAttributes({"account","authenticated","myList","order"})
 @RequestMapping("cart")
 public class Cartcontroller {
     @Autowired
     private CatalogService catalogService;
     @Autowired
     private Cart cart;
+    @Autowired
+    private Order order;
+
+    private boolean confirmed;
+    private boolean shippingAddressRequired;
+    private static final List<String> CARD_TYPE_LIST;
+    static {
+        List<String>cardList = new ArrayList<String>();
+        cardList.add("Visa");
+        cardList.add("MasterCard");
+        cardList.add("American Express");
+        CARD_TYPE_LIST = Collections.unmodifiableList(cardList);
+    }
 
     @GetMapping("viewCart")
     public String viewCart(Model model){
@@ -82,7 +92,11 @@ public class Cartcontroller {
     }
 
     @GetMapping("success")
-    public String success(Model model){
+    public String success(Account account,Model model){
+        if(cart!=null){
+            order.initOrder(account,cart);
+            model.addAttribute("order",order);
+        }
         Iterator<CartItem> cartItems = cart.getAllCartItems();
         while (cartItems.hasNext())
         {
@@ -95,9 +109,9 @@ public class Cartcontroller {
                 model.addAttribute("msg", "Please do it again");
                 return "common/error";
             }else{
-                return "catalog/main";
+                return "order/NewOrderForm";
             }
         }
-        return "catalog/main";
+        return "order/NewOrderForm";
     }
 }
