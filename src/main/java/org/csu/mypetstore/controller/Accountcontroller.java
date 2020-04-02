@@ -119,13 +119,45 @@ public class Accountcontroller {
 
     @PostMapping("newAccount")
     public String newAccount(Account account,String repeatedPassword,Model model) {
-        if (account.getPassword() == null || account.getPassword().length() == 0 || repeatedPassword == null || repeatedPassword.length() == 0) {
+        if(account.getPassword() == null || account.getPassword().length() == 0 || repeatedPassword == null || repeatedPassword.length() == 0) {
             String msg = "密码不能为空";
             model.addAttribute("msg", msg);
+            Account loginAccount = new Account();
+            List<Product> myList = null;
+            boolean authenticated = false;
+            model.addAttribute("account", loginAccount);
+            model.addAttribute("myList", myList);
+            model.addAttribute("authenticated", authenticated);
+            model.addAttribute("newAccount",new Account());
+            model.addAttribute("LANGUAGE_LIST", LANGUAGE_LIST);
+            model.addAttribute("CATEGORY_LIST", CATEGORY_LIST);
             return "account/new_account";
         } else if (!account.getPassword().equals(repeatedPassword)) {
             String msg = "两次密码不一致";
             model.addAttribute("msg", msg);
+            Account loginAccount = new Account();
+            List<Product> myList = null;
+            boolean authenticated = false;
+            model.addAttribute("account", loginAccount);
+            model.addAttribute("myList", myList);
+            model.addAttribute("authenticated", authenticated);
+            model.addAttribute("newAccount",new Account());
+            model.addAttribute("LANGUAGE_LIST", LANGUAGE_LIST);
+            model.addAttribute("CATEGORY_LIST", CATEGORY_LIST);
+            return "account/new_account";
+        }
+        else if(accountService.getAccount(account.getUsername())!=null){
+            String msg="用户名已经被注册";
+            model.addAttribute("msg", msg);
+            Account loginAccount = new Account();
+            List<Product> myList = null;
+            boolean authenticated = false;
+            model.addAttribute("account", loginAccount);
+            model.addAttribute("myList", myList);
+            model.addAttribute("authenticated", authenticated);
+            model.addAttribute("newAccount",new Account());
+            model.addAttribute("LANGUAGE_LIST", LANGUAGE_LIST);
+            model.addAttribute("CATEGORY_LIST", CATEGORY_LIST);
             return "account/new_account";
         } else {
             accountService.insertAccount(account);

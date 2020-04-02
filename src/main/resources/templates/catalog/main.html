@@ -10,7 +10,7 @@
 <div id="Content">
     <div id="Welcome">
         <div id="WelcomeContent">
-            <label th:if= "${account} != null" >
+            <label th:if= "(${session.account} != null) and (${session.authenticated})" >
                 <b th:text="'Welcome ' + ${account.getFirstName()} + '!'" ></b>
             </label>
         </div>
