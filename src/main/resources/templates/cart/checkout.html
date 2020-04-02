@@ -9,7 +9,7 @@
 <header th:replace="common/top"></header>
 <div id="Content">
     <div id="BackLink">
-        <a href="/cart">Return to Shopping Cart</a>
+        <a href="/cart/viewCart">Return to Shopping Cart</a>
     </div>
 
     <div id="Catalog">
@@ -51,6 +51,7 @@
                             </td>
                         </tr>
 
+
                         <!--                    <c:forEach var="cartItem" items="${sessionScope.cart.cartItems}">-->
                         <!--                        <tr>-->
                         <!--                            <td><-->
@@ -83,6 +84,11 @@
 
             </tr>
         </table>
+
+        <a class="Button"  href="/cart/success">
+            OK
+        </a>
+
     </div>
 </div>
 <footer th:replace="common/bottom"></footer>

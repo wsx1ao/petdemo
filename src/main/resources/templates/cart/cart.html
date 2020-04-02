@@ -58,8 +58,11 @@
                 </table>
             </form>
 
-            <a class="Button" th:if="${cart.numberOfItems > 0}" href="#">
+            <a class="Button" th:if="(${cart.numberOfItems > 0}) and (${session.account} != null)" href="/cart/checkout">
                 Proceed to Checkout
+            </a>
+            <a class="Button" th:if="(${session.account} == null)" href="/account/signonForm">
+                Proceed to Signon
             </a>
         </div>
         <div id="MyList" th:if="(${session.account} != null) and (${session.authenticated})">

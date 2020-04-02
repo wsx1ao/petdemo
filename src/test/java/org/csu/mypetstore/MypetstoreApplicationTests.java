@@ -96,8 +96,5 @@ class MypetstoreApplicationTests {
 //
 //
 //    }
-    @Test
-    void testOrder(){
 
-    }
 }

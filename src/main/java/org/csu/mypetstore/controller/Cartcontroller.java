@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.SessionScope;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 @Controller
 @SessionScope
@@ -71,5 +73,31 @@ public class Cartcontroller {
         }
         model.addAttribute("cart",cart);
         return "cart/cart";
+    }
+
+    @GetMapping("checkout")
+    public String checkout(Model model){
+        model.addAttribute("cart",cart);
+        return "cart/checkout";
+    }
+
+    @GetMapping("success")
+    public String success(Model model){
+        Iterator<CartItem> cartItems = cart.getAllCartItems();
+        while (cartItems.hasNext())
+        {
+            CartItem cartItem = cartItems.next();
+            String itemId = cartItem.getItem().getItemId();
+            catalogService.updateInventoryQuantity(itemId,cartItem.getQuantity());
+            Item item = cart.removeItemById(itemId);
+            model.addAttribute("cart",cart);
+            if(item == null){
+                model.addAttribute("msg", "Please do it again");
+                return "common/error";
+            }else{
+                return "catalog/main";
+            }
+        }
+        return "catalog/main";
     }
 }
