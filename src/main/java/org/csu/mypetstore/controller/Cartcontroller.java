@@ -16,7 +16,7 @@ import java.util.Iterator;
 @Controller
 @SessionScope
 @RequestMapping("cart")
-public class Cardcontroller {
+public class Cartcontroller {
     @Autowired
     private CatalogService catalogService;
     @Autowired
