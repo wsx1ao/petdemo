@@ -40,16 +40,38 @@ public class OrderController {
         cardList.add("American Express");
         CARD_TYPE_LIST = Collections.unmodifiableList(cardList);
     }
+    public void clear() {
+        cart = new Cart();
+
+        order = new Order();
+        shippingAddressRequired = false;
+        confirmed = false;
+//        orderList = null;
+    }
+    @ModelAttribute("authenticated")
+    boolean isAuthenticated(){
+        return false;
+    }
     @GetMapping("viewOrder")
     public  String viewOrder(Model model){
-//        order = orderService.getOrder(order.getOrderId());
         if(accountService.getAccount(order.getUsername()).getUsername().equals(order.getUsername())){
+
+            orderService.insertOrder(order);
+
+            clear();
             return "order/ViewOrder";
+
         }else{
             order = null;
             model.addAttribute("msg","you may only view your own orders.");
             return "common/error";
         }
+    }
+    @GetMapping("viewAOrder")
+    public String viewAOrder(int orderId,Model model){
+        order = orderService.getOrder(orderId);
+        model.addAttribute("order",order);
+        return "order/ViewAOrder";
     }
     @RequestMapping("confirm")
     public String newOrder(HttpServletRequest request, Model model){
@@ -93,5 +115,6 @@ public class OrderController {
         model.addAttribute("orderList",orderList);
         return "order/ListOrders";
     }
+
 
 }
