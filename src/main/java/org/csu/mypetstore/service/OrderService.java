@@ -57,6 +57,14 @@ public class OrderService {
     public List<Order> getOrdersByUsername(String username){
         return orderMapper.getOrdersByUsername(username);
     }
+    public List<Order> getallOrders(){return orderMapper.getallOrders();};
+    public void deleteOrder(int orderId){
+         orderMapper.deleteOrder(orderId);
+    }
+
+    public  void updateorder(Order order){
+        orderMapper.updateorder(order);
+    };
 
     public int getNextId(String name){
         Sequence sequence = new Sequence(name,-1);
