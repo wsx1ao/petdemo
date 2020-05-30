@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="StyleSheet" href="../css/jpetstore.css" type="text/css" media="screen"/>
+</head>
+<body>
+<div id="Content">
+    <div id="Catalog">
+        <form action="/manager/signon" method="post">
+            <p>Please enter Manager name and password.</p>
+            <p>
+                Username:<input type="text" name="username"><br/>
+                Password:<input type="password" name="password">
+            </p>
+            <p th:if="${msg!=null}" th:text="${msg}"></p>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+</div>
+</body>
+</html>
