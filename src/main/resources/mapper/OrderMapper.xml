@@ -101,6 +101,7 @@
          WHERE ORDERS.ORDERID = ORDERSTATUS.ORDERID
          ORDER BY ORDERDATE
      </select>
+
     <insert id="insertOrder" parameterType="order">
          INSERT INTO ORDERS (ORDERID, USERID, ORDERDATE, SHIPADDR1, SHIPADDR2, SHIPCITY, SHIPSTATE,
             SHIPZIP, SHIPCOUNTRY, BILLADDR1, BILLADDR2, BILLCITY, BILLSTATE, BILLZIP, BILLCOUNTRY,
@@ -148,5 +149,11 @@
         WHERE ORDERS.USERID = #{value}
         AND ORDERS.ORDERID = ORDERSTATUS.ORDERID
     </update>
+
+    <update id="updateStatusByOrderid">
+    UPDATE orderstatus
+    SET status=#{status}
+    WHERE orderid=#{orderid}
+  </update>
 
 </mapper>

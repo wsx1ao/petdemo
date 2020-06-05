@@ -13,4 +13,5 @@ public interface OrderMapper {
     void insertOrderStatus(Order order);
     void updateorder(Order order);
     void deleteOrder(int orderId);
+    void updateStatusByOrderid(int orderid,String status);
 }

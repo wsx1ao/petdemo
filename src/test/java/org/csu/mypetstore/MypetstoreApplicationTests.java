@@ -46,6 +46,10 @@ class MypetstoreApplicationTests {
        System.out.println(item.getItemId()+" ,"+item.getListPrice()+","+item.getAttribute1());
     }
     @Test
+    void orderTest(){
+        orderService.updateStatusByOrderid(1007,"UP");
+    }
+    @Test
     void testAccount(){
         Account account=accountService.getAccount("j2ee");
         System.out.println(account.getAddress1()+","+account.getEmail()+"1");

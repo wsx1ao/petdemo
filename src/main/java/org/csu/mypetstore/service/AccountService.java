@@ -1,10 +1,13 @@
 package org.csu.mypetstore.service;
 
 import org.csu.mypetstore.domain.Account;
+import org.csu.mypetstore.domain.Order;
 import org.csu.mypetstore.persistence.AccountMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class AccountService {
@@ -40,5 +43,9 @@ public class AccountService {
         if(account.getPassword() != null && account.getPassword().length() > 0){
             accountMapper.updateSignon(account);
         }
+    }
+
+    public List<Account>  getallAccount(){
+        return accountMapper.getallAccount();
     }
 }

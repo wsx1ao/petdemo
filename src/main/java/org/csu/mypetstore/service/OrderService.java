@@ -64,8 +64,11 @@ public class OrderService {
 
     public  void updateorder(Order order){
         orderMapper.updateorder(order);
-    };
+    }
 
+    public void updateStatusByOrderid(int orderid,String status){
+        orderMapper.updateStatusByOrderid(orderid,status);
+    }
     public int getNextId(String name){
         Sequence sequence = new Sequence(name,-1);
         sequence = (Sequence)sequenceMapper.getSequence(sequence);

@@ -107,8 +107,9 @@
                 <td th:text="${order.courier}">UPS</td>
             </tr>
             <tr>
-
-                <td colspan="2" th:text="'Status:'+${order.status}"> P</td>
+                <td>Status：</td>
+                <td  th:text="*{order.status}"/> </td>
+                <a th:href="@{/manager/updateorder(orderId=${order.orderId},orderStatus=${order.status})}" >Change order status</a>
             </tr>
             <tr>
                 <td colspan="2">

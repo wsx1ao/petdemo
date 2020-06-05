@@ -67,12 +67,14 @@ public class OrderController {
             return "common/error";
         }
     }
+
     @GetMapping("viewAOrder")
     public String viewAOrder(int orderId,Model model){
         order = orderService.getOrder(orderId);
         model.addAttribute("order",order);
         return "order/ViewAOrder";
     }
+
     @RequestMapping("confirm")
     public String newOrder(HttpServletRequest request, Model model){
         String a = request.getParameter("shippingAddressRequired");
@@ -115,6 +117,7 @@ public class OrderController {
         model.addAttribute("orderList",orderList);
         return "order/ListOrders";
     }
+
 
 
 }
