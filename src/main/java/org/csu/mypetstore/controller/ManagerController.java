@@ -2,6 +2,7 @@ package org.csu.mypetstore.controller;
 
 
 import org.csu.mypetstore.domain.Account;
+import org.csu.mypetstore.domain.Item;
 import org.csu.mypetstore.domain.Order;
 import org.csu.mypetstore.domain.Product;
 import org.csu.mypetstore.service.AccountService;
@@ -86,18 +87,18 @@ public class ManagerController {
         if (account.getPassword() == null || account.getPassword().length() == 0 || repeatedPassword == null || repeatedPassword.length() == 0) {
             String msg = "密码不能为空";
             model.addAttribute("msg", msg);
-            account=null;
             return "manager/edit_account";
         } else if (!account.getPassword().equals(repeatedPassword)) {
             String msg = "两次密码不一致";
             model.addAttribute("msg", msg);
-            account=null;
             return "manager/edit_account";
         } else {
+            System.out.print(account.getUsername());
             accountService.updateAccount(account);
-            return "manager/success";
+            return "manager/main";
         }
     }
+
     @GetMapping("modifyorder")
     public String viewOrder(int orderId, Model model) {
         order = orderService.getOrder(orderId);
@@ -130,5 +131,101 @@ public class ManagerController {
     public String editAccount(Order order, Model model) {
         orderService.updateorder(order);
         return "manager/listOrders";
+    }
+    @GetMapping("itemmanager")
+    public String itemmanager(Model model) {
+        List<Item> itemList = catalogService.getAllItem();
+        model.addAttribute("itemList",itemList);
+        return "manager/itemlist";
+    }
+
+    @PostMapping("searchItems")
+    public String searchItems(String keyword, Model model, String itemId){
+        if(keyword == null || keyword.length() < 1){
+            String msg = "Please enter a keyword to search for, then press the search button.";
+            model.addAttribute("msg",msg);
+            return "manager/error";
+        }else {
+            Item item = catalogService.getItem(keyword);
+            if(item == null){
+                String msg = "This itemId don't exist";
+                model.addAttribute("msg",msg);
+                return "manager/error";
+            }else{
+                model.addAttribute("item",item);
+                return "manager/items";
+            }
+        }
+    }
+
+    @GetMapping("ViewItems")
+    public String ViewItems(Model model, String itemId){
+        Item item = catalogService.getItem(itemId);
+        model.addAttribute("item", item);
+        return "manager/items";
+    }
+
+    @GetMapping("delete")
+    public String delete(Model model, String itemId) {
+        catalogService.DeleteItemById1(itemId);
+        catalogService.DeleteItemById2(itemId);
+        List<Item> itemList = catalogService.getAllItem();
+        model.addAttribute("itemList",itemList);
+        return "manager/itemlist";
+    }
+
+    @GetMapping("newItemsForm")
+    public String newItemsForm(Model model) {
+        model.addAttribute("newItemsForm",new Item());
+        return "manager/new_item";
+    }
+
+    @PostMapping("newItem")
+    public String newItem(Item item, Model model, int quantity) {
+        if(item.getItemId() == null){
+            String msg = "itemid不能为空";
+            model.addAttribute("msg", msg);
+            return "manager/new_item";
+        }else if(catalogService.getItem(item.getItemId()) != null){
+            String msg = "itemid已存在";
+            model.addAttribute("msg", msg);
+            return "manager/new_item";
+        }else if(catalogService.getProduct(item.getProductId()) == null){
+            String msg = "productid不存在";
+            model.addAttribute("msg", msg);
+            return "manager/new_item";
+        } else{
+            catalogService.insertItem1(item);
+            catalogService.insertItem2(item.getItemId(), quantity);
+            List<Item> itemList = catalogService.getAllItem();
+            model.addAttribute("itemList",itemList);
+            return "manager/itemlist";
+        }
+    }
+
+    @GetMapping("modifyForm")
+    public String modifyForm(Model model,String itemId){
+        Item item = catalogService.getItem(itemId);
+        model.addAttribute("item",item);
+        int quantity = item.getQuantity();
+        model.addAttribute("quantity", quantity);
+        return "manager/modifyitem";
+    }
+
+    @PostMapping("modify")
+    public String modify(Item item, Model model, int quantity){
+           System.out.print(item.getQuantity());
+        Product product=catalogService.getProduct(item.getProductId());
+        if(product == null){
+            String msg = "productid不存在";
+            model.addAttribute("msg", msg);
+            return "manager/modifyitem";
+        }else{
+            catalogService.updateItem1(item);
+            catalogService.updateItem2(item.getItemId(),quantity);
+            List<Item> itemList = catalogService.getAllItem();
+            model.addAttribute("itemList",itemList);
+            return "manager/itemlist";
+        }
     }
 }

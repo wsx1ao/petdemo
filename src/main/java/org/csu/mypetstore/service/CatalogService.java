@@ -50,6 +50,17 @@ public class CatalogService {
         return itemMapper.getItem(itemId);
     }
 
+    public List<Item> getAllItem(){return itemMapper.getAllItem();}
+
+    public void insertItem1(Item item) {itemMapper.insertItem1(item);}
+    public void insertItem2(String itemId, int quantity) {itemMapper.insertItem2(itemId, quantity);}
+
+    public void DeleteItemById1(String itemId){ itemMapper.DeleteItemById1(itemId);}
+    public void DeleteItemById2(String itemId){ itemMapper.DeleteItemById2(itemId);}
+
+    public void updateItem1(Item item) {itemMapper.updateItem1(item);}
+    public void updateItem2(String itemId,int quantity) {itemMapper.updateItem2(itemId,quantity);}
+
     public boolean isItemInStock(String itemId){
         return itemMapper.getInventoryQuantity(itemId) > 0;
     }

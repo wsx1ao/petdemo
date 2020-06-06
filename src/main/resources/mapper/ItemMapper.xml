@@ -49,6 +49,24 @@
         AND I.ITEMID = #{value}
     </select>
 
+    <select id="getAllItem" parameterType="string" resultType="Item">
+        SELECT
+            I.ITEMID,
+            LISTPRICE,
+            UNITCOST,
+            SUPPLIER AS supplierId,
+            QTY AS quantity,
+            I.PRODUCTID,
+            STATUS,
+            ATTR1 AS attribute1,
+            ATTR2 AS attribute2,
+            ATTR3 AS attribute3,
+            ATTR4 AS attribute4,
+            ATTR5 AS attribute5
+        FROM ITEM I, INVENTORY V
+        WHERE I.ITEMID = V.ITEMID
+    </select>
+
     <select id="getInventoryQuantity" parameterType="string" resultType="int">
         SELECT QTY AS value
         FROM INVENTORY
@@ -61,4 +79,37 @@
         WHERE ITEMID = #{itemId}
     </update>
 
+    <delete id="DeleteItemById1">
+        DELETE FROM ITEM
+        WHERE ITEMID = #{itemId}
+    </delete>
+
+    <delete id="DeleteItemById2">
+        DELETE FROM INVENTORY
+        WHERE ITEMID = #{itemId}
+    </delete>
+
+    <insert id="insertItem1" parameterType="Item">
+        INSERT INTO ITEM(ITEMID, PRODUCTID, ATTR1, LISTPRICE)
+        VALUES(#{itemId}, #{productId}, #{attribute1}, #{listPrice})
+    </insert>
+
+    <insert id="insertItem2" parameterType="Item">
+        INSERT INTO INVENTORY(ITEMID, QTY)
+        VALUES(#{itemId}, #{quantity})
+    </insert>
+
+    <update id="updateItem1" parameterType="Item">
+        UPDATE ITEM SET
+        PRODUCTID = #{productId},
+        ATTR1 = #{attribute1},
+        LISTPRICE = #{listPrice}
+        WHERE ITEMID = #{itemId}
+    </update>
+
+    <update id="updateItem2">
+        UPDATE INVENTORY SET
+        QTY = #{quantity}
+        WHERE ITEMID = #{itemId}
+    </update>
 </mapper>

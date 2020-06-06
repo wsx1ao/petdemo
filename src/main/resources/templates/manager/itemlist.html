@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="StyleSheet" href="../css/jpetstore.css" type="text/css" media="screen">
+</head>
+<body>
+<table align="center">
+    <tr>
+        <form action="/manager/searchItems" method="post">
+            <input type="text" name="keyword" size="14" />
+            <input type="submit" name="searchItems" value="Search"/>
+        </form>
+    </tr>
+    <tr>
+        <th>Item ID</th>
+        <th>Product ID</th>
+        <th>Description</th>
+        <th>List Price</th>
+        <th>Quantity</th>
+    <tr th:each="item:${itemList}">
+        <td><a th:href="@{/manager/ViewItems(itemId=${item.itemId})}" th:text="${item.itemId}">Item ID</a></td>
+        <td th:text="${item.productId}">Item Product ProductID</td>
+        <td th:text="${item.attribute1}">
+            Item Attributes
+        </td>
+        <td th:text="'$'+${item.listPrice}">Item List Price</td>
+        <td th:text="${item.quantity}">Item Quantity</td>
+    </tr>
+</table>
+<td><a href="/manager/newItemsForm">add </a>></td>
+</body>
+</html>

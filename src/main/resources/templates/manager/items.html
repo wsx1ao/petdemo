@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="StyleSheet" href="../css/jpetstore.css" type="text/css" media="screen">
+</head>
+<body>
+<a href="/manager/itemmanager">Return</a>
+<td >
+    <table align="center">
+        <tr>
+            <th>Item ID</th>
+            <th>Product ID</th>
+            <th>Description</th>
+            <th>List Price</th>
+            <th>Quantity</th>
+        </tr>
+        <td th:text="${item.itemId}">Item ID </td>
+        <td th:text="${item.product.productId}">Item Product ProductID</td>
+        <td th:text="${item.attribute1}">
+            Item Attributes
+        </td>
+        <td th:text="'$'+${item.listPrice}">Item List Price</td>
+        <td th:text="${item.quantity}">Item Quantity</td>
+    </table>
+<td><a th:href="'/manager/delete?itemId='+${item.itemId}">Delete</a></td>
+<td><a th:href="'/manager/modifyForm?itemId='+${item.itemId}">Modify</a></td>
+</body>
+</html>

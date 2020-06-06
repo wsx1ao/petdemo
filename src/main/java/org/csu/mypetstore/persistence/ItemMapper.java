@@ -15,4 +15,15 @@ public interface ItemMapper {
     List<Item> getItemListByProduct(String productId);
 
     Item getItem(String itemId);
+
+    List<Item> getAllItem();
+
+    void DeleteItemById1(String itemId);
+    void DeleteItemById2(String itemId);
+
+    void insertItem1(Item item);
+    void insertItem2(String itemId, int quantity);
+
+    void updateItem1(Item item);
+    void updateItem2(String itemId,int quantity);
 }

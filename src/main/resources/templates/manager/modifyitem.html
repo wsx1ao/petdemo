@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="StyleSheet" href="../css/jpetstore.css" type="text/css" media="screen">
+</head>
+<body>
+<form action="/manager/modify" method="post" th:object="${item}">
+    <td th:text="${item.itemId}">Item ID </td>
+    <table>
+        <tr>
+            <td>Product ID:</td>
+            <td><input type="text" th:field="*{product.productId}" /></td>
+        </tr>
+        <tr>
+            <td th:text="${msg}"></td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td><input type="text" th:field="*{attribute1}" /></td>
+        </tr>
+        <tr>
+            <td>Quantity:</td>
+            <td><input type="text" th:field="*{quantity}" /></td>
+        </tr>
+        <tr>
+            <td>List Price:</td>
+            <td><input type="text" th:field="*{listPrice}" /></td>
+        </tr>
+    </table>
+    <input type="submit" value="Modify Item Information">
+</form>
+</body>
+</html>
