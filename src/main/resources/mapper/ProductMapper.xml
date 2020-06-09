@@ -14,16 +14,15 @@
         FROM PRODUCT
         WHERE PRODUCTID = #{productId}
     </select>
-
     <select id="getProductListByCategory" parameterType="string" resultType="Product">
-        SELECT
-            PRODUCTID,
-            NAME,
-            DESCN as description,
-            CATEGORY as categoryId,
-        FROM PRODUCT
-        WHERE CATEGORY = #{value}
-    </select>
+            SELECT
+              PRODUCTID,
+              NAME,
+              DESCN as description,
+              CATEGORY as categoryId
+            FROM PRODUCT
+            WHERE CATEGORY = #{value}
+        </select>
 
     <select id="searchProductList" parameterType="string" resultType="Product">
         SELECT

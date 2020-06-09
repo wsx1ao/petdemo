@@ -23,13 +23,12 @@ class MypetstoreApplicationTests {
     AccountService accountService;
     @Autowired
     OrderService orderService;
-//    @Autowired
-//    CartService cartService;
 
 
     @Test
     void testProdect(){
-        catalogService.deleteProductById2("K9-DL-01");
+       List<Product> productList=catalogService.getProductListByCategory("DOGS");
+       System.out.print(productList);
     }
     @Test
     void testItem(){
