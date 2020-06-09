@@ -7,7 +7,7 @@
 </head>
 <body>
 <form action="/manager/modify" method="post" th:object="${item}">
-    <td th:text="${item.itemId}">Item ID </td>
+    <td> <input type="text"th:field="${item.itemId}">Item ID </td>
     <table>
         <tr>
             <td>Product ID:</td>

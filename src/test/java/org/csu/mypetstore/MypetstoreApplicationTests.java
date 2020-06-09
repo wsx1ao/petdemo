@@ -26,19 +26,10 @@ class MypetstoreApplicationTests {
 //    @Autowired
 //    CartService cartService;
 
-    @Test
-    void contextLoads() {
-    }
 
     @Test
-    void testCatagory(){
-        Category c=catalogService.getCategory("BIRDS");
-        System.out.println(c.getName()+","+ c.getDescription());
-    }
-    @Test
     void testProdect(){
-        List<Product> productList=catalogService.getProductListByCategory("BIRDS");
-        System.out.print(productList.size());
+        catalogService.deleteProductById2("K9-DL-01");
     }
     @Test
     void testItem(){

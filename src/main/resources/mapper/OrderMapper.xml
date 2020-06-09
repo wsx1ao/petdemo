@@ -117,10 +117,22 @@
         INSERT INTO ORDERSTATUS (ORDERID, LINENUM, TIMESTAMP, STATUS)
         VALUES (#{orderId,jdbcType=NUMERIC}, #{orderId,jdbcType=NUMERIC}, #{orderDate,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR})
      </insert>
+
     <delete id="deleteOrder" parameterType="int">
         DELETE FROM ORDERS
         WHERE ORDERS.ORDERID = #{value}
     </delete>
+
+    <delete id="deleteOrder2" parameterType="int">
+        DELETE FROM ORDERSTATUS
+        WHERE ORDERID = #{value}
+    </delete>
+
+    <delete id="deleteOrder3" parameterType="int">
+        DELETE FROM LINEITEM
+        WHERE ORDERID = #{value}
+    </delete>
+
 
     <update id="updateorder" parameterType="Order">
         UPDATE ORDERS, ORDERSTATUS

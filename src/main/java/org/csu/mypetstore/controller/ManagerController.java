@@ -1,10 +1,7 @@
 package org.csu.mypetstore.controller;
 
 
-import org.csu.mypetstore.domain.Account;
-import org.csu.mypetstore.domain.Item;
-import org.csu.mypetstore.domain.Order;
-import org.csu.mypetstore.domain.Product;
+import org.csu.mypetstore.domain.*;
 import org.csu.mypetstore.service.AccountService;
 import org.csu.mypetstore.service.CatalogService;
 import org.csu.mypetstore.service.OrderService;
@@ -115,6 +112,11 @@ public class ManagerController {
     }
     @GetMapping("deleteorder")
     public String deletOrder(int orderId) {
+        System.out.print(orderId+"1");
+        orderService.deleteOrder3(orderId);
+        System.out.print(orderId+"2");
+        orderService.deleteOrder2(orderId);
+        System.out.print(orderId+"3");
         orderService.deleteOrder(orderId);
         return "manager/success";
     }
@@ -214,8 +216,7 @@ public class ManagerController {
 
     @PostMapping("modify")
     public String modify(Item item, Model model, int quantity){
-           System.out.print(item.getQuantity());
-        Product product=catalogService.getProduct(item.getProductId());
+        Product product=catalogService.getProduct(item.getProduct().getProductId());
         if(product == null){
             String msg = "productid不存在";
             model.addAttribute("msg", msg);
@@ -228,4 +229,172 @@ public class ManagerController {
             return "manager/itemlist";
         }
     }
+    //product
+    @GetMapping("productmanager")
+    public String productmanager(Model model){
+        List<Product> productList = catalogService.getAllProduct();
+        model.addAttribute("productList",productList);
+        return "manager/productlist";
+    }
+
+    @PostMapping("searchProducts")
+    public String searchIProducts(String keyword, Model model, String productId){
+        if(keyword == null || keyword.length() < 1){
+            String msg = "Please enter a keyword to search for, then press the search button.";
+            model.addAttribute("msg",msg);
+            return "manager/error";
+        }else{
+            Product product = catalogService.getProduct(keyword);
+            if(product == null){
+                String msg = "This product doesn't exist";
+                model.addAttribute("msg",msg);
+                return "manager/error";
+            }else{
+                model.addAttribute("product",product);
+                return "manager/products";
+            }
+        }
+    }
+
+    @GetMapping("ViewProducts")
+    public String ViewProducts(Model model, String productId){
+        Product product = catalogService.getProduct(productId);
+        model.addAttribute("product",product);
+        return "manager/products";
+    }
+
+    @GetMapping("deleteproduct")
+    public String deleteproduct(Model model, String productId){
+        System.out.print(productId);
+        catalogService.deleteProductById2(productId);
+        catalogService.deleteProductById3(productId);
+        catalogService.deleteProductById1(productId);
+        List<Product> productList = catalogService.getAllProduct();
+        model.addAttribute("productList",productList);
+        return "manager/productlist";
+    }
+
+    @GetMapping("newProductsForm")
+    public String newProductsForm(Model model) {
+        model.addAttribute("newProductsForm",new Product());
+        return "manager/new_product";
+    }
+
+    @PostMapping("newProduct")
+    public String newProduct(Product product,Model model) {
+        if(product.getProductId() == null){
+            String msg = "productid不能为空";
+            model.addAttribute("msg",msg);
+            return "manager/new_product";
+        }else if(catalogService.getProduct(product.getProductId()) != null){
+            String msg = "productid已经存在";
+            model.addAttribute("msg",msg);
+            return "manager/new_product";
+        }else {
+            catalogService.insertProduct1(product);
+            List<Product> productList = catalogService.getAllProduct();
+            model.addAttribute("productList",productList);
+            return "manager/productlist";
+        }
+
+    }
+
+    @GetMapping("modifyFormpro")
+    public String modifyFormpro(Model model,Product product){
+        model.addAttribute("product",product);
+        return "manager/modifyproduct";
+    }
+
+    @PostMapping("modifypro")
+    public String modefypro(Product product,Model model){
+        catalogService.updateProduct1(product);
+        List<Product> productList = catalogService.getAllProduct();
+        model.addAttribute("productList",productList);
+        return "manager/productlist";
+    }
+
+    //category
+    @GetMapping("categorymanager")
+    public String categorymanager(Model model){
+        List<Category> categoryList=catalogService.getCategoryList();
+        model.addAttribute("categoryList", categoryList);
+        return "manager/categorylist";
+    }
+
+    @PostMapping("searchCategory")
+    public String searchICategory(String keyword, Model model, String categoryId){
+        if(keyword == null || keyword.length() < 1){
+            String msg = "Please enter a keyword to search for, then press the search button.";
+            model.addAttribute("msg",msg);
+            return "manager/error";
+        }else{
+            Category category = catalogService.getCategory(keyword);
+            if(category == null){
+                String msg = "This product doesn't exist";
+                model.addAttribute("msg",msg);
+                return "manager/error";
+            }else{
+                model.addAttribute("category",category);
+                return "manager/category";
+            }
+        }
+    }
+
+    @GetMapping("ViewCategory")
+    public String ViewCategory(Model model, String categoryId){
+        Category category = catalogService.getCategory(categoryId);
+        model.addAttribute("category",category);
+        return "manager/category";
+    }
+
+    @GetMapping("deletecategory")
+    public String deletecategory(Model model, String categoryId){
+        catalogService.deleteCategorybyId4(categoryId);
+        catalogService.deleteCategorybyId3(categoryId);
+        catalogService.deleteCategoryById2(categoryId);
+        catalogService.deleteCategoryById(categoryId);
+        List<Category> categoryList = catalogService.getCategoryList();
+        model.addAttribute("categorytList",categoryList);
+        return "manager/categorylist";
+    }
+
+    @GetMapping("newCategoryForm")
+    public String newCategoryForm(Model model) {
+        model.addAttribute("newCategoryForm",new Category());
+        return "manager/new_category";
+    }
+
+    @PostMapping("newCategory")
+    public String newCategory(Category category,Model model) {
+        if(category.getCategoryId() == null){
+            String msg = "categoryid不能为空";
+            model.addAttribute("msg",msg);
+            return "manager/new_category";
+        }else if(catalogService.getCategory(category.getCategoryId()) != null){
+            String msg = "categoryid已经存在";
+            model.addAttribute("msg",msg);
+            return "manager/new_category";
+        }else {
+            catalogService.insertCategory(category);
+            List<Category> categoryList = catalogService.getCategoryList();
+            model.addAttribute("categoryList",categoryList);
+            return "manager/categorylist";
+        }
+
+    }
+
+    @GetMapping("modifyFormcat")
+    public String modifyFormcat(Model model,Category category){
+        model.addAttribute("category",category);
+        return "manager/modifycategory";
+    }
+
+    @PostMapping("modifycat")
+    public String modefycat(Category category,Model model){
+        catalogService.updateCategory(category);
+        List<Category> categoryList = catalogService.getCategoryList();
+        model.addAttribute("categoryList",categoryList);
+        return "manager/categorylist";
+    }
+
 }

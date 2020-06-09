@@ -21,4 +21,49 @@
         DESCN AS description
         FROM CATEGORY
     </select>
+
+    <select id="searchCategoryList" parameterType="string" resultType="Category">
+        SELECT
+            CATID AS categoryId,
+            NAME,
+            DESCN as description,
+        FROM CATEGORY
+        WHERE lower(name) like #{value}
+    </select>
+
+    <delete id="deleteCategoryById" >
+        DELETE FROM CATEGORY
+        WHERE CATID = #{categoryId}
+    </delete>
+
+    <delete id="deleteCategoryById2" >
+        DELETE FROM PRODUCT
+        WHERE CATEGORY = #{categoryId}
+    </delete>
+    <delete id="deleteCategoryById3" parameterType="String">
+        DELETE ITEM
+        FROM ITEM JOIN PRODUCT ON ITEM.PRODUCTID = PRODUCT.PRODUCTID
+        WHERE PRODUCT.CATEGORY = #{value}
+    </delete>
+
+    <delete id="deleteCategoryById4" parameterType="String">
+        DELETE INVENTORY
+        FROM INVENTORY JOIN ITEM ON INVENTORY.ITEMID = ITEM.ITEMID
+        WHERE ITEM.PRODUCTID IN
+        (SELECT PRODUCTID
+        FROM PRODUCT
+        WHERE CATRGORY = #{value})
+    </delete>
+    <insert id="insertCategory" parameterType="Category">
+        INSERT INTO CATEGORY(CATID, NAME)
+        VALUES(#{categoryId}, #{name})
+    </insert>
+
+    <update id="updateCategory" parameterType="Category">
+        UPDATE CATEGORY SET
+        NAME = #{name}
+        WHERE CATID = #{categoryId}
+    </update>
+
+
 </mapper>

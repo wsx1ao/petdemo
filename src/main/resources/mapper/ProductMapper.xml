@@ -20,7 +20,7 @@
             PRODUCTID,
             NAME,
             DESCN as description,
-            CATEGORY as categoryId
+            CATEGORY as categoryId,
         FROM PRODUCT
         WHERE CATEGORY = #{value}
     </select>
@@ -30,9 +30,44 @@
             PRODUCTID,
             NAME,
             DESCN as description,
-            CATEGORY as categoryId
+            CATEGORY as categoryId,
         FROM PRODUCT
         WHERE lower(name) like #{value}
+    </select>
+
+    <delete id="deleteProductById1" parameterType="String">
+        DELETE FROM PRODUCT
+        WHERE PRODUCT.PRODUCTID = #{value}
+    </delete>
+
+    <delete id="deleteProductById2" parameterType="String">
+        DELETE INVENTORY
+        FROM INVENTORY JOIN ITEM ON INVENTORY.ITEMID=ITEM.ITEMID
+        WHERE ITEM.PRODUCTID = #{value}
+    </delete>
+
+    <delete id="deleteProductById3" parameterType="String">
+        DELETE FROM ITEM
+        WHERE PRODUCTID = #{value}
+    </delete>
+
+    <insert id="insertProduct1" parameterType="Product">
+        INSERT INTO PRODUCT(PRODUCTID, CATEGORY, NAME)
+        VALUES(#{productId}, #{categoryId}, #{name})
+    </insert>
+
+    <update id="updateProduct1" parameterType="Product">
+        UPDATE PRODUCT SET
+        NAME = #{name}
+        WHERE PRODUCTID = #{productId}
+    </update>
+
+
+    <select id="getAllProduct" parameterType="string" resultType="Product">
+        SELECT
+            PRODUCTID,
+            NAME
+            FROM PRODUCT
     </select>
 
 </mapper>

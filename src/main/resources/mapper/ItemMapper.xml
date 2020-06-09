@@ -101,7 +101,7 @@
 
     <update id="updateItem1" parameterType="Item">
         UPDATE ITEM SET
-        PRODUCTID = #{productId},
+        PRODUCTID = #{product.productId},
         ATTR1 = #{attribute1},
         LISTPRICE = #{listPrice}
         WHERE ITEMID = #{itemId}

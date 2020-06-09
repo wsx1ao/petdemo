@@ -61,7 +61,12 @@ public class OrderService {
     public void deleteOrder(int orderId){
          orderMapper.deleteOrder(orderId);
     }
-
+    public void deleteOrder2(int orderId){
+        orderMapper.deleteOrder2(orderId);
+    }
+    public void deleteOrder3(int orderId){
+        orderMapper.deleteOrder3(orderId);
+    }
     public  void updateorder(Order order){
         orderMapper.updateorder(order);
     }

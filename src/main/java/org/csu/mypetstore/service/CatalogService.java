@@ -52,6 +52,8 @@ public class CatalogService {
 
     public List<Item> getAllItem(){return itemMapper.getAllItem();}
 
+    public List<Product> getAllProduct(){return productMapper.getAllProduct();}
+
     public void insertItem1(Item item) {itemMapper.insertItem1(item);}
     public void insertItem2(String itemId, int quantity) {itemMapper.insertItem2(itemId, quantity);}
 
@@ -60,6 +62,26 @@ public class CatalogService {
 
     public void updateItem1(Item item) {itemMapper.updateItem1(item);}
     public void updateItem2(String itemId,int quantity) {itemMapper.updateItem2(itemId,quantity);}
+
+    public void insertProduct1(Product product) {productMapper.insertProduct1(product);}
+
+    public void deleteProductById1(String productId){ productMapper.deleteProductById1(productId);}
+    public void deleteProductById2(String productId){ productMapper.deleteProductById2(productId);}
+    public void deleteProductById3(String productId){ productMapper.deleteProductById3(productId);}
+
+    public void updateProduct1(Product product){productMapper.updateProduct1(product);}
+
+    public void insertCategory(Category category) {categoryMapper.insertCategory(category);}
+
+    public void deleteCategoryById(String categoryId) {categoryMapper.deleteCategoryById(categoryId);}
+    public void deleteCategoryById2(String categoryId) {categoryMapper.deleteCategoryById2(categoryId);}
+    public void deleteCategorybyId3(String categoryId){
+        categoryMapper.deleteCategoryById3(categoryId);
+    }
+    public void deleteCategorybyId4(String categoryId){
+        categoryMapper.deleteCategoryById3(categoryId);
+    }
+    public void updateCategory(Category category) {categoryMapper.updateCategory(category);}
 
     public boolean isItemInStock(String itemId){
         return itemMapper.getInventoryQuantity(itemId) > 0;
