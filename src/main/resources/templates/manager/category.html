@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="StyleSheet" href="../css/jpetstore.css" type="text/css" media="screen">
+</head>
+<body>
+<a href="/manager/categorymanager">Return</a>
+<td >
+    <table align="center">
+        <tr>
+            <th>Category ID</th>
+            <th>Name</th>
+
+        </tr>
+        <td th:text="${category.categoryId}">Category ID</td>
+        <td th:text="${category.name}">Category Name</td>
+        Category Attributes
+        </td>
+    </table>
+<td><a th:href="'/manager/deletecategory?categoryId='+${category.categoryId}">Delete</a></td>
+<td><a th:href="'/manager/modifyFormcat?categoryId='+${category.categoryId}">Modify</a></td>
+</body>
+</html>

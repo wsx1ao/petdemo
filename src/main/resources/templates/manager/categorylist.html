@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="StyleSheet" href="../css/jpetstore.css" type="text/css" media="screen">
+</head>
+<body>
+<table align="center">
+    <tr>
+        <form action="/manager/searchCategory" method="post">
+            <input type="text" name="keyword" size="14" />
+            <input type="submit" name="searchCategory" value="Search"/>
+        </form>
+    </tr>
+
+    <th>Category ID</th>
+    <th>Name</th>
+
+    <tr th:each="category:${categoryList}">
+        <td><a th:href="@{/manager/ViewCategory(categoryId=${category.categoryId})}" th:text="${category.categoryId}">Category ID</a></td>
+        <td th:text="${category.name}">Category Name</td>
+
+    </tr>
+</table>
+<td><a href="/manager/newCategoryForm">add </a>></td>
+</body>
+</html>

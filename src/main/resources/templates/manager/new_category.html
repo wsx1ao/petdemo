@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="StyleSheet" href="../css/jpetstore.css" type="text/css" media="screen">
+</head>
+<body>
+<form action="/manager/newCategory" method="post" th:object="${newCategoryForm}">
+    <h3>Category Information</h3>
+    <table>
+        <tr>
+            <td>Category ID:</td>
+            <td><input type="text" th:field="*{categoryId}" /></td>
+        <tr>
+            <td th:text="${msg}"></td>
+        </tr>
+        </tr>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" th:field="*{name}" /></td>
+        </tr>
+    </table>
+    <input type="submit" value="Save Category Information">
+</form>
+</body>
+</html>
